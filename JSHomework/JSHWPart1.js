@@ -64,3 +64,53 @@ function rotateLeft(arr,n){
     }
     return arr
 }
+
+function balancedBrackets(brackets){
+    //object contening properties, in this case my brackets
+        let openBrackets = {
+            curly: '{',
+            square: '[',
+            parentesi: '('
+        };
+        
+        let closeBrakets = {
+            curly: '}',
+            square: ']',
+            parentesi: ')'
+        };
+    
+        //assigning the length of the string on a variable
+        let end = brackets.length-1;
+    
+        //variables to store temp valus to evaluate each case
+        let balBracket;
+    
+        //boolean variable that will return my answer
+        let ans;
+    
+        //check which type of bracket and we set the closing one on temp variable in order to make the check 
+        //on the next if statement otherwise returns false, it will also return flase if any of the brackets are 
+        //closing brackets at the beginning
+        for(let i=0; i <= end; i++){
+            if(brackets.charAt(i) === openBrackets.curly){
+                balBracket = closeBrakets.curly;
+            }else if(brackets.charAt(i) === openBrackets.square){
+                balBracket = closeBrakets.square;
+            }else if(brackets.charAt(i) === openBrackets.parentesi){
+                balBracket = closeBrakets.parentesi;
+            }else{
+                return false;
+            }
+    
+            //checks the end of the char array to see if is the opposite bracket
+            if(brackets.charAt(end) === balBracket){
+                ans = true;
+            }else{
+                ans = false;
+                break;
+            }
+            //reduces the lenght of the string to check the next one on the end
+            end -= 1;
+        }
+        return ans;
+    }

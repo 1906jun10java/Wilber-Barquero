@@ -1,7 +1,8 @@
-
+//========Object=========
+let homework = () => {};
 
 //====================== fibonnacci function====================== 
-function fibonacci(n){
+homework.fibonacci = (n) =>{
     if (n == 0) {
         return 0;
     } else if(n == 1){
@@ -12,7 +13,7 @@ function fibonacci(n){
 }
   
 //====================== sorting function====================== 
-function sort(array){
+homework.sort = (array) =>{
     let size=array.length;
     //Bubble sorting begins 
 	//outer loop till last element-1
@@ -33,7 +34,7 @@ function sort(array){
 }
 
 //====================== factorial function====================== 
-function factorial(n){
+homework.factorial = (n) =>{
     let ans = 1;
     for( let i = 1; i <= n; ++i) {
         ans *= i;
@@ -42,7 +43,7 @@ function factorial(n){
 }
 
 //====================== factorial function using recursion====================== 
-function factorialRecursive(n){
+homework.factorialRecursive = (n) =>{
     if(n <= 1) {
         return 1;
     } else {
@@ -51,22 +52,22 @@ function factorialRecursive(n){
 }
 
 //====================== rotate left function====================== 
-function rotateLeft(arr,n){
+homework.rotateLeft = (array,n) =>{
     //int[] unOrderedArr = {1, 2, 3, 4, 5, 6, 7, 8};
     let RotateTimes = n;
     
     for (let i = 0; i < RotateTimes; i++) {
-        for (let j = arr.length - 1; j > 0; j--) {
-            let temp = arr[j];
-            arr[j] = arr[j - 1];
-            arr[j - 1] = temp;
+        for (let j = array.length - 1; j > 0; j--) {
+            let temp = array[j];
+            array[j] = array[j - 1];
+            array[j - 1] = temp;
         }
     }
-    return arr
+    return array
 }
 
 //====================== balance brackets function ====================== 
-function balancedBrackets(str){
+homework.balancedBrackets = (str) =>{
     //object contening properties, in this case my brackets
         let openBrackets = {
             curly: '{',

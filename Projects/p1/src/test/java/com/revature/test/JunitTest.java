@@ -9,8 +9,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import com.revature.DaosImpl.EmployeeDaoImpl;
 import com.revature.beans.Employee;
+import com.revature.daosimpl.EmployeeDaoImpl;
 
 public class JunitTest {
 	/*EmployeeDaoImpl edi = new EmployeeDaoImpl();*/

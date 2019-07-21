@@ -1,4 +1,4 @@
-package com.revature.DaosImpl;
+package com.revature.daosimpl;
 
 import java.sql.SQLException;
 import java.util.List;

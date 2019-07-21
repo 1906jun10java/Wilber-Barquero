@@ -3,8 +3,8 @@ package com.revature.driver;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.revature.DaosImpl.EmployeeDaoImpl;
 import com.revature.beans.Employee;
+import com.revature.daosimpl.EmployeeDaoImpl;
 
 public class Driver {
 	public static void main(String[] args) {

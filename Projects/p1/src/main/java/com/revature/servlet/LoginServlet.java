@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet{
 		// overloaded version takes a boolean parameter, if false returns null when no session exists for the incoming request
 		HttpSession session = req.getSession();
 		// grab credentials from request
-		Credentials creds = new Credentials(req.getParameter("username"), req.getParameter("password"));
+		Credential creds = new Credential(req.getParameter("username"), req.getParameter("password"));
 		User u = authService.authenticateUser(creds);
 		if (u != null) {
 			// set user information as session attributes (not request attributes)

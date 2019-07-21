@@ -1,6 +1,8 @@
 /*******************************************************************************
    Drops
 ********************************************************************************/
+ALTER TABLE EMPLOYEE DROP CONSTRAINT FK_EMP_REPORTSTO_EMPID;
+/
 ALTER TABLE EMPLOYEE DROP CONSTRAINT FK_CREDENTIALS_EMPLOYEE;
 /
 ALTER TABLE REIMBURSEMENT DROP CONSTRAINT FK_EMPLOYEE_REIMBURSEMENT;
@@ -39,6 +41,7 @@ EMP_EMAIL VARCHAR2(30) NOT NULL,
 EMP_DEPARTMENT VARCHAR2(30),
 EMP_REPORTSTO NUMBER,
 
+
 CONSTRAINT FK_CREDENTIALS_EMPLOYEE
 FOREIGN KEY (EMP_EMAIL)
 REFERENCES CREDENTIALS(EMP_EMAIL)
@@ -51,7 +54,7 @@ CREATE TABLE REIMBURSEMENT(
 REIM_ID NUMBER PRIMARY KEY,
 EMP_ID NUMBER,
 REIM_AMMOUNT NUMBER(9,2),
-REIM_DATE TIMESTAMP,
+REIM_DATE DATE,
 REIM_TYPE VARCHAR2(30),
 --REIM_RECIPT BLOB,
 REIM_STATUS VARCHAR2(30),
@@ -159,40 +162,6 @@ BEGIN
 END;
 /
 
-
-CREATE OR REPLACE PROCEDURE RETURN_EMP_MANAGER(
-    EMP_ID IN EMPLOYEE.EMP_ID%TYPE,
-    EMP_MANAGERID OUT EMPLOYEE.EMP_REPORTSTO%TYPE)
-IS
-BEGIN
-SELECT EMP_REPORTSTO INTO EMP_MANAGERID
-FROM EMPLOYEE WHERE EMP_ID = EMP_ID;
-END;
-/
-
-
-/*******************************************************************************
-   Create Triggers on Inserts
-********************************************************************************/
-DROP TRIGGER EMPLOYEE_ON_INSERT;
-CREATE OR REPLACE TRIGGER EMPLOYEE_ON_INSERT
-  BEFORE INSERT ON EMPLOYEE
-  FOR EACH ROW
-BEGIN
-  SELECT EMPLOYEE_SEQUENCE.NEXTVAL
-  INTO :NEW.EMP_ID
-  FROM DUAL;
-END;
-
-CREATE OR REPLACE TRIGGER EMPLOYEE_ON_UPDATE
-  BEFORE UPDATE ON EMPLOYEE
-  FOR EACH ROW
-BEGIN
-  SELECT EMP_EMAIL
-  INTO :NEW.EMP_EMAIL
-  FROM DUAL;
-END;
-
 /*******************************************************************************
    Inserting Employee's in the DB
 ********************************************************************************/
@@ -202,4 +171,17 @@ EXECUTE CREATE_EMPLOYEE('Ingrid','Lizama','il@gmail.com','Hardware','','p4ssw0rd
 EXECUTE CREATE_EMPLOYEE('Claudia','Saenz','cs@gmail.com','Hardware','2','p4ssw0rd');
 EXECUTE CREATE_EMPLOYEE('Mario','Rivera','mr@gmail.com','QA','3','p4ssw0rd');
 
-SELECT * FROM EMPLOYEE
+2
+3
+4
+5
+6
+7
+	
+SELECT 
+    E.EMP_FIRSTNAME ||' '|| E.EMP_LASTNAME EMPLOYEE,
+    M.EMP_FIRSTNAME ||' '|| M.EMP_LASTNAME MANAGER
+FROM
+    EMPLOYEE E
+INNER JOIN
+    EMPLOYEE M ON M.EMP_ID = E.EMP_REPORTSTO;

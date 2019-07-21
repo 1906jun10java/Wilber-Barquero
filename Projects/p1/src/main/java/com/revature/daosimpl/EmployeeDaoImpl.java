@@ -21,7 +21,6 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		ResultSet rs = stmt.executeQuery();
-		Employee empObj = new Employee();
 		if (!rs.isBeforeFirst()) {
 			return null;
 		}
@@ -85,19 +84,4 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		return empObj;
 	}
 
-/*	private Employee parseResultSet(ResultSet rs) throws SQLException {
-		Employee empObj = new Employee();
-		if (!rs.isBeforeFirst()) {
-			return null;
-		}
-		while (rs.next()) {
-			empObj.setId(rs.getInt("EMP_ID"));
-			empObj.setFirstName(rs.getString("FIRSTNAME"));
-			empObj.setLastName(rs.getString("LASTNAME"));
-			empObj.setEmail(rs.getString("EMAIL"));
-			empObj.setPassword(rs.getString("EMP_PASS"));
-			empObj.setReportsTo(rs.getInt("MAN_ID"));
-		}
-		return empObj;
-	}*/
 }

@@ -6,5 +6,12 @@ import java.util.List;
 import com.revature.beans.Reimbursement;
 
 public interface ReimbursementDao {
-	
+
+	Reimbursement createReimbursement() throws SQLException;
+	List<Reimbursement> getPendingReimbursement(int id) throws SQLException;
+	List<Reimbursement> getApprovedReimbursetment(int approvedId) throws SQLException;
+	List<Reimbursement> getReimbursementById(int id) throws SQLException;
+	List<Reimbursement> getReimbByDeaprtment(int id) throws SQLException;
+	List<Reimbursement> getAllResolvedReimb() throws SQLException;
 }
+ 

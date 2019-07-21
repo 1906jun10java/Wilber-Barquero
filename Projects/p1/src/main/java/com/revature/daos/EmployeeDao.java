@@ -8,6 +8,5 @@ import com.revature.beans.Employee;
 public interface EmployeeDao {
 	List<Employee> getAllEmployees() throws SQLException;
 	Employee getEmployeeById(int id) throws SQLException;
-	Employee getEmployeeByEmail(String email) throws SQLException;
-	
+	Employee getEmployeeByEmail(String email) throws SQLException;	
 }

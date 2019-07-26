@@ -7,7 +7,7 @@ import com.revature.beans.Reimbursement;
 
 public interface ReimbursementDao {
 
-	Reimbursement createReimbursement() throws SQLException;
+	Reimbursement createReimbursement(int id, double amount, String type) throws SQLException;
 	List<Reimbursement> getPendingReimbursement(int id) throws SQLException;
 	List<Reimbursement> getApprovedReimbursetment(int approvedId) throws SQLException;
 	List<Reimbursement> getReimbursementById(int id) throws SQLException;

@@ -55,7 +55,7 @@ CREATE TABLE REIMBURSEMENT(
 REIM_ID NUMBER PRIMARY KEY,
 EMP_ID NUMBER,
 REIM_AMMOUNT NUMBER(9,2),
-REIM_DATE DATE,
+--REIM_DATE DATE,
 REIM_TYPE VARCHAR2(30),
 --REIM_RECIPT BLOB,
 REIM_STATUS VARCHAR2(30),
@@ -154,17 +154,17 @@ END;
 CREATE OR REPLACE PROCEDURE REQUEST_REIMBURSMENT(    -- REQUEST_REINBURSMENT 
     EMP_ID IN NUMBER,
     REIM_AMMOUNT IN NUMBER,
-    REIM_DATE IN DATE,
+    --REIM_DATE IN DATE,
     REIM_TYPE IN VARCHAR2
     --REIM_RECIPT IN BLOB,
     )
 AS
 BEGIN
-    INSERT INTO REIMBURSEMENT(REIM_ID, EMP_ID, REIM_AMMOUNT, REIM_DATE, REIM_TYPE) VALUES(
+    INSERT INTO REIMBURSEMENT(REIM_ID, EMP_ID, REIM_AMMOUNT, REIM_TYPE) VALUES(
         REIMBURSEMENT_SEQUENCE.NEXTVAL,
         EMP_ID,
         REIM_AMMOUNT,
-        REIM_DATE,
+        --REIM_DATE,
         REIM_TYPE
         --REIM_RECIPT, 
         );
@@ -186,15 +186,17 @@ EXECUTE DELETE_EMPLOYEE('cs@gmail.com');
 
 EMP_ID IN NUMBER,
     REIM_AMMOUNT IN NUMBER,
-    REIM_DATE IN DATE,
+    --REIM_DATE IN DATE,
     REIM_TYPE IN VARCHAR2
+/*******************************************************************************
+   Inserting Reimbursment in the DB
+********************************************************************************/
+EXECUTE REQUEST_REIMBURSMENT(2,500,'Travel');
+EXECUTE REQUEST_REIMBURSMENT(2,1000,'Food')
+EXECUTE REQUEST_REIMBURSMENT(4,200,'Food');
+EXECUTE REQUEST_REIMBURSMENT(4,300,'Gas');
+EXECUTE REQUEST_REIMBURSMENT(4,100,'Travel');
 
-EXECUTE REQUEST_REIMBURSMENT(2,500,'07/25/2019',Travel);
-EXECUTE REQUEST_REIMBURSMENT()
-EXECUTE REQUEST_REIMBURSMENT('Suko','Lee','sl@gmail.com','Software','1','p4ssw0rd');
-EXECUTE REQUEST_REIMBURSMENT('Ingrid','Lizama','il@gmail.com','Hardware','','p4ssw0rd');
-EXECUTE REQUEST_REIMBURSMENT('Claudia','Saenz','cs@gmail.com','Hardware','2','p4ssw0rd');
-EXECUTE REQUEST_REIMBURSMENT('Mario','Rivera','mr@gmail.com','QA','3','p4ssw0rd');
 
 /*******************************************************************************
    Query TESTS

@@ -18,7 +18,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	
 	@Override
 	public List<Employee> getAllEmployees() throws SQLException{
-		String sql = "SELECT * FROM EMPLOYEE";
+		String sql = "SELECT EMP_ID, EMP_FIRSTNAME, EMP_LASTNAME, EMP_EMAIL, EMP_DEPARTMENT, EMP_REPORTSTO FROM EMPLOYEE";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		ResultSet rs = stmt.executeQuery();

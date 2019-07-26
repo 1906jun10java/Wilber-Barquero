@@ -20,17 +20,17 @@ public class ReimbursementDaoImpl implements ReimbursementDao{
 	private static Connection connection = cs.getConnection();
 	
 	 @Override
-	 public Reimbursement createReimbursement() throws SQLException {
+	 public Reimbursement createReimbursement(int id, double amount, String type) throws SQLException {
 	  
-	  String sql = "{CALL REQUEST_REIMBURSMENT(?,?,?,?)";
+	  String sql = "{CALL REQUEST_REIMBURSMENT(?,?,?)";
 	  CallableStatement ps = connection.prepareCall(sql);
 	  
 	  Reimbursement createReim = new Reimbursement();
 	  
 	  ps.setInt(1, createReim.getEmpId());
 	  ps.setDouble(2, createReim.getAmmount());
-	  ps.setDate(3, (Date) createReim.getDate());
-	  ps.setString(4, createReim.getType());
+	  //ps.setDate(3, (Date) createReim.getDate());
+	  ps.setString(3, createReim.getType());
 	  ps.executeUpdate();
 	  
 	  return createReim;
@@ -106,7 +106,7 @@ public class ReimbursementDaoImpl implements ReimbursementDao{
 			reimObj.setReimId(rs.getInt("REIM_ID"));
 			reimObj.setEmpId(rs.getInt("EMP_ID"));
 			reimObj.setAmmount(rs.getDouble("REIM_AMMOUNT"));
-			reimObj.setDate(rs.getDate("REIM_DATE"));
+			//reimObj.setDate(rs.getDate("REIM_DATE"));
 			reimObj.setType(rs.getString("REIM_TYPE"));
 			reimObj.setStatus(rs.getString("REIM_STATUS"));
 			reimList.add(reimObj);

@@ -22,11 +22,25 @@ function employeeInfo(){
 				return JSONdata;
 			}).then(
 			function(JSONdata) {
-				document.getElementById("eId").innerText = "Employee ID: "+JSONdata.eId;
 				document.getElementById("firstname").innerText ="First Name: "+JSONdata.firstName;
 				document.getElementById("lastname").innerText = "Last Name: "+JSONdata.lastName;
 				document.getElementById("email").innerText = "Email/Username: "+JSONdata.email;
 				document.getElementById("department").innerText = "Department: "+JSONdata.department;
 				return JSONdata;
 			})
+			
+function managerInfo(){
+	fetch("http://localhost:8082/p1/session").then(
+			function(resp) {
+				let JSONdata = resp.json();
+				return JSONdata;
+			}).then(
+			function(JSONdata) {
+				document.getElementById("firstname").innerText ="First Name: "+JSONdata.firstName;
+				document.getElementById("lastname").innerText = "Last Name: "+JSONdata.lastName;
+				document.getElementById("email").innerText = "Email/Username: "+JSONdata.email;
+				document.getElementById("department").innerText = "Department: "+JSONdata.department;
+				return JSONdata;
+			})
+	}
 }

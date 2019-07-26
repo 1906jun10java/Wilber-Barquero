@@ -6,31 +6,34 @@ public class Employee {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String password;
+	private String department;
 	private int reportsTo;
+	private String password;
 	
 	public Employee() {
 		super();
 	}
-
 	
-	public Employee(String firstName, String lastName, String email, String password) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
-	}
-
-
-	public Employee(int id, String firstName, String lastName, String email, String password, int reportsTo) {
+	public Employee(int id, String firstName, String lastName, String email, String department, int reportsTo) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.password = password;
+		this.department = department;
 		this.reportsTo = reportsTo;
+	}
+
+	public Employee(int id, String firstName, String lastName, String email, String department, int reportsTo,
+			String password) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.department = department;
+		this.reportsTo = reportsTo;
+		this.password = password;
 	}
 
 	public int getId() {
@@ -65,12 +68,12 @@ public class Employee {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getDepartment() {
+		return department;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
 	public int getReportsTo() {
@@ -81,11 +84,20 @@ public class Employee {
 		this.reportsTo = reportsTo;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", password=" + password + ", reportsTo=" + reportsTo + "]";
+				+ ", department=" + department + ", reportsTo=" + reportsTo + ", password=" + password + "]";
 	}
-	
-	
+
+
+
 }

@@ -1,54 +1,62 @@
 package com.revature.servlet;
 
 import javax.servlet.http.HttpServlet;
-
-import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.revature.beans.Employee;
+import com.revature.daosimpl.EmployeeDaoImpl;
+import com.revature.services.LoginService;
+
+import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet{
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		//resp.getWriter().write("FuuuuuuuuuuuuuuuuuuuuuuuCk");
-		resp.sendRedirect("login");
-	}
+	private static final long serialVersionUID = 1998374341524544897L;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("login.html").forward(request, response);
+	} //redirect to employee servlet
 	
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// check whether a session already exists, and create one if not
-		// overloaded version takes a boolean parameter, if false returns null when no session exists for the incoming request
-		HttpSession session = req.getSession();
-		// grab credentials from request
-		Credential creds = new Credential(req.getParameter("username"), req.getParameter("password"));
-		User u = authService.authenticateUser(creds);
-		if (u != null) {
-			// set user information as session attributes (not request attributes)
-			session.setAttribute("userId", u.getId());
-			session.setAttribute("username", u.getUsername());
-			session.setAttribute("firstname", u.getFirstname());
-			session.setAttribute("lastname", u.getLastname());
-			session.setAttribute("email", u.getEmail());
-			session.setAttribute("problem", null);
-			// resp.getWriter().write("welcome, "+u.getFirstname()+" "+u.getLastname());
-			// redirect user to their profile page if authenticated
-			resp.sendRedirect("profile");
-		} else {
-			
-			// what if the creds are wrong?
-			
-			session.setAttribute("problem", "invalid credentials");
-			
-			// Option 1: print a sassy message (not super useful)
-			// resp.getWriter().write("invalid credentials, nerd");
-			
-			// Option 2: redirect back to login
-			resp.sendRedirect("login");
-			
-			// Option 3: send back a status code of 403 and a message
-			// TO BE CONTINUED... WHAT IF THERE'S AN ERROR PAGE DEFINED?
-			//resp.sendError(403, "invalid credentials");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
+		LoginService login = new LoginService();
+		HttpSession session = request.getSession();
+		
+		String username = request.getParameter("username"); //name on form
+		String password = request.getParameter("password"); //name on form
+		boolean test = login.loginTest(username,password );
+		
+		if(test == true) {
+			session = createSession(username, session);
+			response.setStatus(200);
+			response.sendRedirect("employeeHome");
 		}
+		else {
+			response.sendRedirect("login");
+		}
+		
+		
+	}
+	public HttpSession createSession(String username,HttpSession session) {
+		EmployeeDaoImpl edi = new EmployeeDaoImpl();
+		Employee e = null;
+		try {
+			e = edi.getEmployeeByEmail(username);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		session.setAttribute("eId", e.getId());
+		session.setAttribute("firstName", e.getFirstName());
+		session.setAttribute("lastName", e.getLastName());
+		session.setAttribute("email", e.getEmail());
+		session.setAttribute("department", e.getDepartment());
+		session.setAttribute("reportsTo", e.getReportsTo());
+		
+		return session;
 	}
 }

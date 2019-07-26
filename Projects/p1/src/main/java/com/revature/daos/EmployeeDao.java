@@ -9,4 +9,6 @@ public interface EmployeeDao {
 	List<Employee> getAllEmployees() throws SQLException;
 	Employee getEmployeeById(int id) throws SQLException;
 	Employee getEmployeeByEmail(String email) throws SQLException;	
+	void saveEmployee(Employee e) throws SQLException;
+	void removeEmployee(String email) throws SQLException;
 }

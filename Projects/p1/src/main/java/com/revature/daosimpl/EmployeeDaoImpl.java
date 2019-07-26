@@ -1,5 +1,6 @@
 package com.revature.daosimpl;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,7 +33,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			emp.setFirstName(rs.getString("EMP_FIRSTNAME"));
 			emp.setLastName(rs.getString("EMP_LASTNAME"));
 			emp.setEmail(rs.getString("EMP_EMAIL"));
-			emp.setPassword(rs.getString("EMP_DEPARTMENT"));
+			emp.setDepartment(rs.getString("EMP_DEPARTMENT"));
 			emp.setReportsTo(rs.getInt("EMP_REPORTSTO"));
 			el.add(emp);
 		}
@@ -55,7 +56,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			empObj.setFirstName(rs.getString("EMP_FIRSTNAME"));
 			empObj.setLastName(rs.getString("EMP_LASTNAME"));
 			empObj.setEmail(rs.getString("EMP_EMAIL"));
-			empObj.setPassword(rs.getString("EMP_DEPARTMENT"));
+			empObj.setDepartment(rs.getString("EMP_DEPARTMENT"));
 			empObj.setReportsTo(rs.getInt("EMP_REPORTSTO"));
 		}
 		return empObj;
@@ -64,7 +65,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
 	@Override
 	public Employee getEmployeeByEmail(String email) throws SQLException {
-		String sql = "SELECT * FROM EMPLOYEE WHERE EMAIL = ?";
+		String sql = "SELECT * FROM EMPLOYEE WHERE EMP_EMAIL = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setString(1, email);
 
@@ -78,10 +79,31 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			empObj.setFirstName(rs.getString("EMP_FIRSTNAME"));
 			empObj.setLastName(rs.getString("EMP_LASTNAME"));
 			empObj.setEmail(rs.getString("EMP_EMAIL"));
-			empObj.setPassword(rs.getString("EMP_DEPARTMENT"));
+			empObj.setDepartment(rs.getString("EMP_DEPARTMENT"));
 			empObj.setReportsTo(rs.getInt("EMP_REPORTSTO"));
 		}
 		return empObj;
 	}
 
+	@Override
+	public void saveEmployee(Employee e) throws SQLException {
+		
+	        String sql = "{ call CREATE_EMPLOYEE(?,?,?,?,?,?)";
+	        CallableStatement stmt = connection.prepareCall(sql);
+	        stmt.setString(1, e.getFirstName());
+	        stmt.setString(2, e.getLastName());
+	        stmt.setString(3, e.getEmail());
+	        stmt.setString(4, e.getDepartment());
+	        stmt.setInt(5, e.getReportsTo());
+	        stmt.setString(6, e.getPassword());
+	        stmt.execute();
+	    }
+	
+	public void removeEmployee(String email) throws SQLException {
+		String sql = "{ call CREATE_EMPLOYEE(?)";
+        CallableStatement stmt = connection.prepareCall(sql);
+		stmt.setString(1, email);
+		stmt.execute();
+	}
 }
+

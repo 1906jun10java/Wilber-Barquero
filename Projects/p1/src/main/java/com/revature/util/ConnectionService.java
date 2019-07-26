@@ -1,48 +1,57 @@
 package com.revature.util;
 
-import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionService {
-    private static ConnectionService instance;
-    private static Connection connection = null;
+	// singleton connection factory
+		private static ConnectionService cf = new ConnectionService();
 
-    private ConnectionService() {
-        connection = makeConnection();
-    }
+		// constructor
+		private ConnectionService() {
+			super();
+		}
 
-    // Return singleton instance of the connection
-    public static synchronized ConnectionService getInstance() {
-        if (instance == null) {
-            instance = new ConnectionService();
-        }
-        return instance;
-    }
+		// creates a sync'd instance of the ConnFactory if none exists and returns an
+		// instance of itself
+		public static synchronized ConnectionService getInstance() {
+			if (cf == null) { // if no instance exists
+				cf = new ConnectionService(); // create a new instance of the ConnFactory
+			}
+			return cf;
+		}
 
-    // Make connection to the DataBase
-    private Connection makeConnection() {
-        Connection c = null;
-        Properties p = new Properties();
+		// attempts a connection with a sql database
+		public Connection getConnection() {
 
-        try {
-            String propertiesFile = "database.properties";
-            p.load(new FileReader(propertiesFile));
-            Class.forName(p.getProperty("driver"));
-            c = DriverManager.getConnection(p.getProperty("url"),
-                    p.getProperty("user"), p.getProperty("password"));
-        } catch (IOException | SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+				Connection conn = null;					//sets the connection to null
+				Properties prop = new Properties();		//creates a new properties field
 
-        return c;
-    }
+				try {//attempts the connection and throws an appropriate exception if failure occurs
+						InputStream stream =this.getClass().getResourceAsStream("/database.properties"); 
+						prop.load(stream);
+					Class.forName(prop.getProperty("driver"));				//pulls the value for the driver
+					conn = DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("user"),prop.getProperty("password"));		//sets the values for url, username and password for the sql server
+					
+				} catch (FileNotFoundException e) {	//file was not found
+					e.printStackTrace();
+				} catch (IOException e) {			//IOException
+					e.printStackTrace();
+				} catch (SQLException e) {			//SQLException
+					e.printStackTrace();	
+				} catch (ClassNotFoundException e) {	//ClassNotFound
+					e.printStackTrace();
+				}catch (Exception e) {
+					System.out.println("something weird happened during connection");
+					e.printStackTrace();
+				}
 
-    // Return connection to the Database
-    public Connection getConnection() {
-        return connection;
-    }
+				return conn;
+
+			}
 }

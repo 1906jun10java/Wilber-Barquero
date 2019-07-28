@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reimbursement form</title>
+
+</head>
+
+<body>
+  <div class="topNavigation">
+  <a href="Employee.html">Home</a>
+  <a href="ViewReimbursement.html">View Reimbursement</a>
+  <a href="login.html">Log Out</a>
+</div>
+                    <fieldset>
+                        <div class=>
+                            <h1 class="title">
+                            	Reimbursement form
+                            </h1>
+                        </div>
+                    </fieldset>
+                    <br>
+                    <form method="POST">
+                            <fieldset>
+                                    <div>
+                                        <h4>Employee Id</h4>
+                                        <input  type="text" name="reimId">
+                                    </div>
+                                </fieldset>
+                        <fieldset>
+                            <div>
+                                    <h4>Reimbursement Type</h4>
+                                <select name="type" form="TypeForm">
+                                    <option value="" selected disabled>Expense Type</option>
+                                    <option value="1">Relocation </option>
+                                    <option value="2">Travel </option>
+                                    <option value="3">Food </option>
+                                    <option value="5">Other Expenses </option>
+                                </select> <br /> <br />
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <div>
+                                <h4>Reimbursement Amount</h4>
+                                <input type="text" name="reimAmount">
+                            </div>
+                        </fieldset>
+                    <br>
+                    <div>
+                            <button id="reimBtn" type="submit"> <h4>Submit</h4></button>
+                    </div>
+         </form>
+    </body>
+</html>

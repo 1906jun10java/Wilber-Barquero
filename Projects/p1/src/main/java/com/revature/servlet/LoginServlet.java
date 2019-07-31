@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet{
 	private static final long serialVersionUID = 1998374341524544897L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("login.html").forward(request, response);
-	} //redirect to employee servlet
+	} //redirect to employeeHome servlet
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
